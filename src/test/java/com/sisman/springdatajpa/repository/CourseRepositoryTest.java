@@ -1,6 +1,8 @@
 package com.sisman.springdatajpa.repository;
 
 import com.sisman.springdatajpa.entity.Course;
+import com.sisman.springdatajpa.entity.Student;
+import com.sisman.springdatajpa.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -94,6 +96,33 @@ class CourseRepositoryTest {
                         firstPageTenRecords).getContent();
 
         System.out.println("courses = " + courses);
+    }
+
+    @Test
+    public void saveCourseWithStudentAndTeacher(){
+
+        Teacher teacher = Teacher.builder()
+                .firstName("Lizze")
+                .lastName("Morgan")
+                .build();
+
+        Student student = Student.builder()
+                .firstName("Abhishek")
+                .lastName("Singh")
+                .emailId("abhishek@gmail.com")
+                .build();
+
+        Course course = Course
+                .builder()
+                .title("AI")
+                .credit(12)
+                .teacher(teacher)
+                .build();
+
+        course.addStudent(student);
+
+        courseRepository.save(course);
+
     }
 
 
